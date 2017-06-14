@@ -6,7 +6,7 @@ from keras.models import model_from_json
 
 def predict(model, X):
     X = X.reshape(1, 64, 64, 3)
-    Y = model.predict(X)
+    Y = (model.predict(X) * 255.).astype(np.uint8)
     return Y
 
 if __name__ == '__main__':
@@ -20,6 +20,6 @@ if __name__ == '__main__':
     # Getting weights
     model.load_weights("Data/Model/weights.h5")
     Y = predict(model, img)
-    name = 'segmentated.png'
+    name = 'segmentated.jpg'
     save_img(Y, name)
     print('Segmentated image saved as '+name)

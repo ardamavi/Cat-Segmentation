@@ -9,10 +9,10 @@ from sklearn.model_selection import train_test_split
 def get_img(data_path):
     # Getting image array from path:
     img = imread(data_path)
-    img = imresize(img, (64, 64))
+    img = imresize(img, (64, 64, 3))
     return img
 
-def save_img(img, name='segmentated.png'):
+def save_img(img, name='segmentated.jpg'):
     imsave(name, img.reshape(64, 64, 3))
 
 def get_dataset(dataset_path='Data/Train_Data'):
@@ -27,8 +27,25 @@ def get_dataset(dataset_path='Data/Train_Data'):
         Y = []
         for img in images:
             img_path = inputs_path+'/'+img
-            X.append(get_img(img_path))
-            Y.append(get_img(img_path.replace('input', 'output')))
+            x_img = get_img(img_path)
+            x_img = x_img.astype('float32')
+            y_img = get_img(img_path.replace('input', 'output'))
+            y_img = y_img.astype('float32')
+
+            mean = np.mean(x_img)
+            std = np.std(x_img)
+            x_img -= mean
+            x_img /= std
+            x_img /= 255.
+
+            mean = np.mean(y_img)
+            std = np.std(y_img)
+            y_img -= mean
+            y_img /= std
+            y_img /= 255.
+
+            X.append(x_img)
+            Y.append(y_img)
         X = np.array(X)
         Y = np.array(Y)
         # Create dateset:
