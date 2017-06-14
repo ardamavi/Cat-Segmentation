@@ -6,7 +6,7 @@ from keras.models import model_from_json
 
 def predict(model, X):
     X = X.reshape(1, 64, 64, 3)
-    Y = (model.predict(X) * 255.).astype(np.uint8)
+    Y = model.predict(X) * 255.
     return Y
 
 if __name__ == '__main__':

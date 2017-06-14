@@ -27,21 +27,13 @@ def get_dataset(dataset_path='Data/Train_Data'):
         Y = []
         for img in images:
             img_path = inputs_path+'/'+img
+
             x_img = get_img(img_path)
             x_img = x_img.astype('float32')
-            y_img = get_img(img_path.replace('input', 'output'))
-            y_img = y_img.astype('float32')
-
-            mean = np.mean(x_img)
-            std = np.std(x_img)
-            x_img -= mean
-            x_img /= std
             x_img /= 255.
 
-            mean = np.mean(y_img)
-            std = np.std(y_img)
-            y_img -= mean
-            y_img /= std
+            y_img = get_img(img_path.replace('input', 'output'))
+            y_img = y_img.astype('float32')
             y_img /= 255.
 
             X.append(x_img)
