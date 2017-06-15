@@ -49,7 +49,7 @@ Function: ReLu
 - Merge Layer
 
 - Transpose Convolutional Layer
-64 filter
+1 filter
 Filter shape: 3x3
 Strides: 1x1
 
