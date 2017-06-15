@@ -1,7 +1,8 @@
 # Cat-Segmentation
 ### By Arda Mavi
 
-Cat segmentation with deep learning
+Cat segmentation with deep learning.<br/>
+Database created by myself.
 
 ### Segmentation Example:
 |<img src="/Data/Train_Data/input/cat.78.jpg" width="200">|<img src="Data/Train_Data/mask/mask_cat.78.jpg" width="200">|
