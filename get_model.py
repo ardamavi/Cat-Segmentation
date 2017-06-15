@@ -30,7 +30,7 @@ def get_model():
 
     inputs = Input(shape=(64, 64, 3))
 
-    conv_1 = Conv2D(32, (3, 3), strides=(1, 1), padding='same')(inputs)
+    conv_1 = Conv2D(1, (3, 3), strides=(1, 1), padding='same')(inputs)
     act_1 = Activation('relu')(conv_1)
 
     conv_2 = Conv2D(64, (3, 3), strides=(1, 1), padding='same')(act_1)
@@ -41,7 +41,7 @@ def get_model():
 
     merge_1 = concatenate([act_3, act_1], axis=3)
 
-    deconv_2 = Conv2DTranspose(3, (3, 3), strides=(1, 1), padding='same')(merge_1)
+    deconv_2 = Conv2DTranspose(1, (3, 3), strides=(1, 1), padding='same')(merge_1)
     act_4 = Activation('relu')(deconv_2)
 
     model = Model(inputs=[inputs], outputs=[act_4])

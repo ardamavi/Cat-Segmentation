@@ -9,11 +9,11 @@ from sklearn.model_selection import train_test_split
 def get_img(data_path):
     # Getting image array from path:
     img = imread(data_path)
-    img = imresize(img, (64, 64, 3))
+    img = imresize(img, (64, 64))
     return img
 
 def save_img(img, name='segmentated.jpg'):
-    imsave(name, img.reshape(64, 64, 3))
+    imsave(name, img.reshape(64, 64))
 
 def get_dataset(dataset_path='Data/Train_Data'):
     # Getting all data from data path:
@@ -28,10 +28,10 @@ def get_dataset(dataset_path='Data/Train_Data'):
         for img in images:
             img_path = inputs_path+'/'+img
 
-            x_img = get_img(img_path).astype('float32')
+            x_img = get_img(img_path).astype('float32').reshape(64, 64, 3)
             x_img /= 255.
 
-            y_img = get_img(img_path.replace('input', 'output')).astype('float32')
+            y_img = get_img(img_path.replace('input/', 'mask/mask_')).astype('float32').reshape(64, 64, 1)
             y_img /= 255.
 
             X.append(x_img)

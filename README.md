@@ -4,7 +4,7 @@
 Cat segmentation with deep learning
 
 ### Segmentation Example:
-|<img src="/Data/Train_Data/input/cat.78.jpg" width="200">|<img src="Data/Train_Data/output/cat.78.jpg" width="200">|
+|<img src="/Data/Train_Data/input/cat.78.jpg" width="200">|<img src="Data/Train_Data/mask/mask_cat.78.jpg" width="200">|
 |:-:|:-:|
 | Orijinal | Segmented |
 
@@ -54,25 +54,7 @@ Filter shape: 3x3
 Strides: 1x1
 
 - Activation
-Function: ReLu
-
-- Merge Layer
-
-- Transpose Convolutional Layer
-128 filter
-Filter shape: 3x3
-Strides: 1x1
-
-- Activation
-Function: ReLu
-
-- Transpose Convolutional Layer
-3 filter
-Filter shape: 3x3
-Strides: 1x1
-
-- Activation
-Function: ReLu
+Function: Sigmoid
 
 ##### Optimizer: Adadelta
 ##### Loss: Dice Coefficient
