@@ -6,12 +6,13 @@ from keras.models import model_from_json
 
 def predict(model, X):
     X = X.reshape(1, 64, 64, 3)
-    Y = model.predict(X) * 255.
+    Y = model.predict(X).astype('float32')
+    Y *= 255.
     return Y
 
-if __name__ == '__main__':
-    img_dir = sys.argv[1]
-    img = get_img(img_dir)
+def main(img_dir):
+    img = get_img(img_dir).astype('float32')
+    img /= 255.
     # Getting model:
     model_file = open('Data/Model/model.json', 'r')
     model = model_file.read()
@@ -23,3 +24,6 @@ if __name__ == '__main__':
     name = 'segmentated.jpg'
     save_img(Y, name)
     print('Segmentated image saved as '+name)
+
+if __name__ == '__main__':
+    main(sys.argv[1])

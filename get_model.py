@@ -8,7 +8,7 @@ from keras.layers import Input, Conv2D, Activation, MaxPooling2D, Conv2DTranspos
 def dice_coef(y_true, y_pred):
     smooth = 1.
     y_true_f = K.flatten(y_true)
-    y_pred_f = K.flatten(y_pred) * 255.
+    y_pred_f = K.flatten(y_pred)
     intersection = K.sum(y_true_f * y_pred_f)
     return (2. * intersection + smooth) / (K.sum(y_true_f) + K.sum(y_pred_f) + smooth)
 
@@ -41,18 +41,10 @@ def get_model():
 
     merge_1 = concatenate([act_3, act_1], axis=3)
 
-    deconv_2 = Conv2DTranspose(64, (3, 3), strides=(1, 1), padding='same')(merge_1)
+    deconv_2 = Conv2DTranspose(3, (3, 3), strides=(1, 1), padding='same')(merge_1)
     act_4 = Activation('relu')(deconv_2)
 
-    merge_2 = concatenate([act_4, inputs], axis=3)
-
-    deconv_3 = Conv2DTranspose(128, (3, 3), strides=(1, 1), padding='same')(merge_2)
-    act_5 = Activation('relu')(deconv_3)
-
-    conv_3 = Conv2D(3, (3, 3), strides=(1, 1), padding='same')(act_5)
-    act_6 = Activation('sigmoid')(conv_3)
-
-    model = Model(inputs=[inputs], outputs=[act_6])
+    model = Model(inputs=[inputs], outputs=[act_4])
 
     model.compile(optimizer='adadelta', loss=dice_coef_loss, metrics=[dice_coef])
 
